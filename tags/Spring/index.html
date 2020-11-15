@@ -6,11 +6,11 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://alicolha.github.io">
-  <title>(*´∀`)</title>
+  <title>Tag: Spring | (*´∀`)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="(*´∀&#96;)">
-<meta property="og:url" content="https://alicolha.github.io/index.html">
+<meta property="og:url" content="https://alicolha.github.io/tags/Spring/index.html">
 <meta property="og:site_name" content="(*´∀&#96;)">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="Alicolha">
@@ -165,128 +165,36 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-Spring源码分析（一）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+  
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/article/9439442c.html">Spring源码分析（一）</a>
-    </h1>
-  
-
-        
-        
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2020" class="archive-year">2020</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	
 <a href="/article/9439442c.html" class="archive-article-date">
   	<time datetime="2020-11-15T16:37:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-16</time>
 </a>
 
-	<!-- 开始添加字数统计-->
-        
-          <div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">1.1k字</span>
-      </span>
-    </span>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/article/9439442c.html">Spring源码分析（一）</a>
+    </h1>
+  
 
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">4分</span>
-      </span>
-    </span>
-</div>
-
+        <div class="article-info info-on-right">
           
-        <!-- 添加完成 -->
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Spring源码分析"><a href="#Spring源码分析" class="headerlink" title="Spring源码分析"></a>Spring源码分析</h1><h2 id="一、源码下载与编译"><a href="#一、源码下载与编译" class="headerlink" title="一、源码下载与编译"></a>一、源码下载与编译</h2><h3 id="Mac下Gradle的安装与配置"><a href="#Mac下Gradle的安装与配置" class="headerlink" title="Mac下Gradle的安装与配置"></a>Mac下Gradle的安装与配置</h3><p>​    进入Gradle官网，选择安装版本，Binary-only下载压缩包。</p>
-<p>​    将在指定目录下解压，然后配置环境变量。</p>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 进入用户目录下的配置文件</span><br><span class="line">vim ~&#x2F;.bash_profile</span><br><span class="line"># 修改.bash_profile文件, 在文件的最后加上如下配置: </span><br><span class="line"># export GRADLE&#x3D;&#x2F;指定路径&#x2F;gradle-6.0.1</span><br><span class="line"># export PATH&#x3D;$PATH:$GRADLE&#x2F;bin</span><br><span class="line"># 修改后, 按[Esc], 命令&quot;:wq&quot;保存退出, 并在终端使用如下命令使配置生效:</span><br><span class="line">source ~&#x2F;.bash_profile</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h4 id="bash-profile找不到"><a href="#bash-profile找不到" class="headerlink" title=".bash_profile找不到"></a>.bash_profile找不到</h4><p>​    直接vim ~/.bash_profile进入的是空文件，而且.bash_profile是隐藏文件，没有开启显示的情况下访达不能直接搜索到。</p>
-<p>​    查阅资料都是说如果找不到就自己新建一个，但环境变量如果消失的话，应该是除了cd以外的命令均无法使用。并且我之前配置的java环境变量使用-version命令能够正常显示，说明.bash_profile文件应该还存在并且生效。</p>
-<p>​    最后发现，由于我此时使用的是提权的root用户，～进入的是/var/root路径。新打开一个终端，使用普通用户访问～路径，进入的是/Users/用户名目录。此时能够正常访问到之前设置的.bash_profile文件。</p>
-<h2 id="Spring源码下载"><a href="#Spring源码下载" class="headerlink" title="Spring源码下载"></a>Spring源码下载</h2><p>​    1.在指定位置新建文件夹，终端进入后输入以下语句以进行下载。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;gitee.com&#x2F;mirrors&#x2F;Spring-Framework.git</span><br></pre></td></tr></table></figure>
-
-<p>2.cd进入下载的Spring源码路径执行gradle命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gradle objenesisRepackJar</span><br><span class="line">gradle cglibRepackJar</span><br><span class="line">gradlew :spring-oxm:compileTestJava</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="可能出现的问题："><a href="#可能出现的问题：" class="headerlink" title="可能出现的问题："></a>可能出现的问题：</h3><p>1、Could not determine the dependencies of task ‘:spring-oxm:compileTestKotlin’.</p>
-<p><img src="/image-20201115143844838.png" alt="image-20201115143844838"></p>
-<p>解决方法：</p>
-<p>​    由于我使用的是最新版本Gradle，所以需要下载最新版本Spring源码进行编译，或者对Gradle进行降级。</p>
-<hr>
-<p>2、Could not determine the dependencies of task ‘:spring-core:objenesisRepackJar’.</p>
-<p><img src="/image-20201115144348247.png" alt="image-20201115144348247"></p>
-<p>解决方法：</p>
-<p>​    运行gradle objenesisRepackJar，然后重新执行gradlew :spring-oxm:compileTestJava</p>
-<hr>
-<p>3、Could not GET ‘xxx’.Read timed out</p>
-<p><img src="/image-20201115144532777.png" alt="image-20201115144532777"></p>
-<p>解决方法：</p>
-<p>​    网络问题导致超时，重新执行gradlew :spring-oxm:compileTestJava直到编译成功</p>
-<p>4、连续编译失败（网络问题）</p>
-<p><img src="/image-20201115160644761.png" alt="image-20201115160644761"></p>
-<p>解决方法：</p>
-<p>​    分别单独执行gradlew :spring-oxm:compileJava，gradlew :spring-core:compileTestFixturesKotlin以及gradlew :spring-aop:compileJava。</p>
-<p>​    执行完成后重新执行gradlew :spring-oxm:compileTestJava直到编译成功</p>
-<hr>
-<p>最终结果</p>
-<p><img src="/image-20201115172915609.png" alt="image-20201115172915609"></p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>​    此次源码下载与编译花费了我大量时间，从早上十点到下午五点半才最终编译成功。</p>
-<p>​    最大的问题就是第一个，由于Gradle版本过于新，导致较旧的spring源码无法正常编译。网上直接搜索所报错误，基本上都是安卓相关，没有任何参考价值。</p>
-<p>​    其次就是编译过程中jar包下载，让我感觉回到了15年前拨号上网的时候。不仅下载巨慢，而且期间不断报错，一遍遍重新编译的过程中耗费了我非常多的精力。</p>
-<p>​    尤其是在最后98%阶段的byte-buddy-1.10.15.jar包，只有3.3m的大小，但从下载到最终结束一共花费了两个多小时。因为每次下载到最后总会报出ssl管道异常关闭的错误，不得不一遍遍重复。</p>
-<p><img src="/image-20201115174014323.png" alt="image-20201115174014323"></p>
-<hr>
-<p>​    现在是晚上12点，idea终于开始正常编译了，以下是经验教训。</p>
-<ul>
-<li><p>​    最新版本的Gradle+最新版本的Spring可以完成编译，但是idea无法正常导入。一开始我以为是编译慢的原因，结果编译了两个小时还没动静，就重新开始查阅资料，一遍一遍的重装。最后发现，还得把<strong>idea的版本升级到最新</strong>，才能正常导入。</p>
-<p>​    此处借鉴<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38425803/article/details/109670018">夯实Spring（五） | 搭建Spring源码环境</a></p>
-</li>
-<li><p>  Gradle编译前，可以通过设置阿里云镜像提速，不然得像我一样下载几个小时</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">在下载好的Spring源码文件夹里的build.gradle 加上</span><br><span class="line">allprojects &#123;</span><br><span class="line">			repositories &#123;</span><br><span class="line">				maven&#123; url &#39;http:&#x2F;&#x2F;maven.aliyun.com&#x2F;nexus&#x2F;content&#x2F;groups&#x2F;public&#x2F;&#39;&#125;</span><br><span class="line">				maven &#123; url &#39;https:&#x2F;&#x2F;maven.aliyun.com&#x2F;repository&#x2F;gradle-plugin&#39; &#125;</span><br><span class="line">				maven &#123; url &#39;https:&#x2F;&#x2F;maven.aliyun.com&#x2F;repository&#x2F;google&#39; &#125;</span><br><span class="line">				maven &#123; url &#39;https:&#x2F;&#x2F;maven.aliyun.com&#x2F;repository&#x2F;jcenter&#39;&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/image-20201116002343235.png" alt="image-20201116002343235"></p>
-<p>​    至于有没有效果，因为我已经下载过了，所以不清楚提速有多快。</p>
-<ul>
-<li>通过设置本地Gradle，避免idea从网页重复下载</li>
-</ul>
-<p><img src="/image-20201116002545689.png" alt="image-20201116002545689"></p>
-<hr>
-<h3 id="截图留念"><a href="#截图留念" class="headerlink" title="截图留念"></a>截图留念<img src="/image-20201116003207637.png" alt="image-20201116003207637"></h3>
-      
-<!-- 《添加版权声明 -->
-<!--添加版权声明https://github.com/JoeyBling/hexo-theme-yilia-plus/commit/c1215e132f6d5621c5fea83d3c4f7ccbcca074a3-->
-
-
-<!-- #版权基础设定：0-关闭声明； 1-文章对应的md文件里有declare: true属性，才有版权声明； 2-所有文章均有版权声明 -->
-
-  <div class="declare" hidden="hidden"></div>
-
-<!-- 添加版权声明》 -->
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -298,153 +206,19 @@
 		</ul>
 	</div>
 
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/article/9439442c.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-0-&gt;∞" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/article/a4b9cf5f.html">与其不断的规划，我决定先行动起来</a>
-    </h1>
-  
-
-        
-        
-<a href="/article/a4b9cf5f.html" class="archive-article-date">
-  	<time datetime="2020-11-13T09:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-13</time>
-</a>
-
-	<!-- 开始添加字数统计-->
-        
-          <div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">1.2k字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">4分</span>
-      </span>
-    </span>
-</div>
-
           
-        <!-- 添加完成 -->
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=22842399&auto=1&height=66"></iframe>
 
-<p><em>这是一篇关于我的故事</em></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>​    我决定开设个人博客了。工作两年多以来，从我正式入职开始，公司就没有把我当作新人使用。无止境的产品更新需求，开发过程中遇到的各类bug，客户的对接…由于工作任务繁重，初始薪资太低，生存下去成为了我在北京最首要的任务。</p>
-        
-          <a class="article-more-a" href="/article/a4b9cf5f.html#more">more >></a>
-        
-      
-<!-- 《添加版权声明 -->
-<!--添加版权声明https://github.com/JoeyBling/hexo-theme-yilia-plus/commit/c1215e132f6d5621c5fea83d3c4f7ccbcca074a3-->
-
-
-<!-- #版权基础设定：0-关闭声明； 1-文章对应的md文件里有declare: true属性，才有版权声明； 2-所有文章均有版权声明 -->
-
-  <div class="declare" hidden="hidden"></div>
-
-<!-- 添加版权声明》 -->
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">初めて</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/article/a4b9cf5f.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
+    </div></section>
+  
+
+    
 
 
           </div>
@@ -478,10 +252,10 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
+		isHome: false,
 		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
